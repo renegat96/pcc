@@ -1,0 +1,15 @@
+*.a
+*.o
+*.so
+receiver/app/appclient
+receiver/app/appserver
+receiver/app/incastserver
+receiver/app/recvfile
+receiver/app/sendfile
+receiver/app/test
+receiver/src/udt
+sender/app/appclient
+sender/app/incast_client
+sender/app/recvfile
+sender/app/sendfile
+sender/src/udt
