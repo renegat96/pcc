@@ -6,6 +6,7 @@
    #include <ws2tcpip.h>
 #endif
 #include <fstream>
+#include <chrono>
 #include <iostream>
 #include <cstring>
 #include <udt.h>
@@ -80,6 +81,7 @@ int main(int argc, char* argv[])
    int64_t size = ifs.tellg();
    ifs.seekg(0, ios::beg);
    cout<<"size is "<<size<<endl;
+   auto start_time = chrono::high_resolution_clock::now();
    // send file size information
    if (UDT::ERROR == UDT::send(fhandle, (char*)&size, sizeof(int64_t), 0))
    {
@@ -97,6 +99,10 @@ int main(int argc, char* argv[])
    UDT::perfmon(fhandle, &trace);
    cout<<"sentsize is "<<trace.pktTotalBytes<<endl;
    UDT::close(fhandle);
+   auto end_time = chrono::high_resolution_clock::now();
+   auto dur = end_time - start_time;
+   cout << "duration: ";
+   cout << chrono::duration_cast<chrono::milliseconds>(dur).count() << " ms" << endl;
 
    ifs.close();
 
@@ -124,7 +130,7 @@ DWORD WINAPI monitor(LPVOID s)
       #ifndef WIN32
          usleep(1000000);
       #else
-         Sleep(1000);
+         Sleep(10);
       #endif
     i++;
     if(i>10000)
