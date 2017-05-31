@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
    int64_t size = ifs.tellg();
    ifs.seekg(0, ios::beg);
    cout<<"size is "<<size<<endl;
-   auto start_time = chrono::high_resolution_clock::now();
+   auto start_time = chrono::steady_clock::now();
    // send file size information
    if (UDT::ERROR == UDT::send(fhandle, (char*)&size, sizeof(int64_t), 0))
    {
@@ -99,7 +99,7 @@ int main(int argc, char* argv[])
    UDT::perfmon(fhandle, &trace);
    cout<<"sentsize is "<<trace.pktTotalBytes<<endl;
    UDT::close(fhandle);
-   auto end_time = chrono::high_resolution_clock::now();
+   auto end_time = chrono::steady_clock::now();
    auto dur = end_time - start_time;
    cout << "duration: ";
    cout << chrono::duration_cast<chrono::milliseconds>(dur).count() << " ms" << endl;

@@ -1,4 +1,4 @@
-C++ = g++
+C++ = c++
 
 ifndef os
    os = LINUX
