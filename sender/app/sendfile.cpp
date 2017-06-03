@@ -29,6 +29,7 @@ DWORD WINAPI monitor(LPVOID);
 int main(int argc, char* argv[])
 {
 
+   auto start_time = chrono::steady_clock::now();
    if ((argc != 4) || (0 == atoi(argv[2])))
    {
       cout << "usage: recvfile server_ip server_port file_to_send" << endl;
@@ -81,7 +82,6 @@ int main(int argc, char* argv[])
    int64_t size = ifs.tellg();
    ifs.seekg(0, ios::beg);
    cout<<"size is "<<size<<endl;
-   auto start_time = chrono::steady_clock::now();
    // send file size information
    if (UDT::ERROR == UDT::send(fhandle, (char*)&size, sizeof(int64_t), 0))
    {
